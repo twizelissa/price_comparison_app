@@ -4,24 +4,24 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../domain/entities/product.dart';
-import 'product_card.dart';
+import '../../domain/entities/store.dart';
+import 'store_card.dart';
 
-class TrendingProductsSection extends StatelessWidget {
-  final List<Product> products;
-  final ValueChanged<Product>? onProductTap;
+class NearbyStoresSection extends StatelessWidget {
+  final List<Store> stores;
+  final ValueChanged<Store>? onStoreTap;
   final VoidCallback? onSeeAllTap;
 
-  const TrendingProductsSection({
+  const NearbyStoresSection({
     Key? key,
-    required this.products,
-    this.onProductTap,
+    required this.stores,
+    this.onStoreTap,
     this.onSeeAllTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (products.isEmpty) {
+    if (stores.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -35,7 +35,7 @@ class TrendingProductsSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppStrings.trendingPriceChecks,
+                AppStrings.nearbyStores,
                 style: AppTextStyles.h5,
               ),
               if (onSeeAllTap != null)
@@ -53,24 +53,24 @@ class TrendingProductsSection extends StatelessWidget {
           
           const SizedBox(height: AppDimensions.paddingM),
           
-          // Horizontal product list
+          // Horizontal store list
           SizedBox(
-            height: AppDimensions.productCardHeight,
+            height: AppDimensions.storeCardHeight,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: products.length,
+              itemCount: stores.length,
               itemBuilder: (context, index) {
-                final product = products[index];
+                final store = stores[index];
                 return Container(
-                  width: AppDimensions.productCardWidth,
+                  width: 280,
                   margin: EdgeInsets.only(
-                    right: index < products.length - 1 
+                    right: index < stores.length - 1 
                         ? AppDimensions.paddingM 
                         : 0,
                   ),
-                  child: ProductCard(
-                    product: product,
-                    onTap: () => onProductTap?.call(product),
+                  child: StoreCard(
+                    store: store,
+                    onTap: () => onStoreTap?.call(store),
                   ),
                 );
               },
