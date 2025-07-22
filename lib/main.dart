@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'core/constants/app_colors.dart';
-import 'core/constants/app_strings.dart';
-import 'config/routes/app_router.dart';
-import 'config/routes/route_names.dart';
+import 'package:kigali_price_check/core/constants/app_colors.dart';
+import 'package:kigali_price_check/core/constants/app_strings.dart';
+import 'package:kigali_price_check/config/routes/app_router.dart';
+import 'package:kigali_price_check/config/routes/route_names.dart';
 
 void main() {
   runApp(const KigaliPriceCheckApp());

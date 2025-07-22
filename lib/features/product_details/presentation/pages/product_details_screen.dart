@@ -112,9 +112,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 },
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Image indicators
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -132,9 +132,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 );
               }).toList(),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Product info
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -148,12 +148,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   // Category
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
@@ -166,9 +167,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Rating
                   Row(
                     children: [
@@ -190,9 +191,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Price comparison
                   Text(
                     'Price Comparison',
@@ -200,18 +201,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Store prices
-                  _buildStorePriceCard('Simba Supermarket', product['price'] ?? 'RWF 5,000', 'Lowest price', true),
+                  _buildStorePriceCard('Simba Supermarket',
+                      product['price'] ?? 'RWF 5,000', 'Lowest price', true),
                   const SizedBox(height: 12),
-                  _buildStorePriceCard('Nakumatt', 'RWF 5,500', '+RWF 500', false),
+                  _buildStorePriceCard(
+                      'Nakumatt', 'RWF 5,500', '+RWF 500', false),
                   const SizedBox(height: 12),
                   _buildStorePriceCard('UTC', 'RWF 5,800', '+RWF 800', false),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Description
                   Text(
                     'Description',
@@ -219,9 +222,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 12),
-                  
+
                   Text(
                     'This is a high-quality product that offers excellent value for money. Made with premium materials and designed to last. Perfect for everyday use and special occasions.',
                     style: AppTextStyles.h6.copyWith(
@@ -229,9 +232,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       height: 1.5,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Specifications
                   Text(
                     'Specifications',
@@ -239,14 +242,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 12),
-                  
+
                   _buildSpecificationRow('Brand', 'Quality Brand'),
                   _buildSpecificationRow('Weight', '1.2 kg'),
                   _buildSpecificationRow('Dimensions', '20 x 15 x 10 cm'),
                   _buildSpecificationRow('Color', 'Multiple'),
-                  
+
                   const SizedBox(height: 100), // Space for bottom button
                 ],
               ),
@@ -323,13 +326,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Widget _buildStorePriceCard(String storeName, String price, String difference, bool isLowest) {
+  Widget _buildStorePriceCard(
+      String storeName, String price, String difference, bool isLowest) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isLowest ? AppColors.primary.withOpacity(0.1) : Colors.grey.shade50,
+        color:
+            isLowest ? AppColors.primary.withOpacity(0.1) : Colors.grey.shade50,
         borderRadius: BorderRadius.circular(12),
-        border: isLowest 
+        border: isLowest
             ? Border.all(color: AppColors.primary, width: 2)
             : Border.all(color: Colors.grey.shade200),
       ),

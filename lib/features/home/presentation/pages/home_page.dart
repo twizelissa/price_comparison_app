@@ -65,9 +65,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    
+
                     const SizedBox(height: 20),
-                    
+
                     // Search bar
                     Container(
                       decoration: BoxDecoration(
@@ -88,7 +88,8 @@ class _HomePageState extends State<HomePage> {
                           hintStyle: AppTextStyles.h6.copyWith(
                             color: Colors.grey,
                           ),
-                          prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                          prefixIcon:
+                              const Icon(Icons.search, color: Colors.grey),
                           suffixIcon: Container(
                             margin: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
@@ -112,9 +113,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 20),
-              
+
               // Categories
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -139,9 +140,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 15),
-              
+
               SizedBox(
                 height: 100,
                 child: ListView.builder(
@@ -153,9 +154,9 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              
+
               const SizedBox(height: 25),
-              
+
               // Popular Products
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -180,9 +181,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 15),
-              
+
               // Product grid
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -201,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              
+
               const SizedBox(height: 20),
             ],
           ),

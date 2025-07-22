@@ -1,205 +1,247 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'app_colors.dart';
+import 'package:kigali_price_check/core/constants/app_colors.dart';
 
 class AppTextStyles {
-  // Base text style using Google Fonts
-  static TextStyle get _baseTextStyle => GoogleFonts.roboto(
-        color: AppColors.textPrimary,
-      );
+  // Base font family
+  static String get fontFamily => GoogleFonts.inter().fontFamily!;
 
-  // Display styles
-  static TextStyle get displayLarge => _baseTextStyle.copyWith(
-        fontSize: 57,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.25,
-      );
-
-  static TextStyle get displayMedium => _baseTextStyle.copyWith(
-        fontSize: 45,
-        fontWeight: FontWeight.w400,
-      );
-
-  static TextStyle get displaySmall => _baseTextStyle.copyWith(
-        fontSize: 36,
-        fontWeight: FontWeight.w400,
-      );
-
-  // Headline styles
-  static TextStyle get headlineLarge => _baseTextStyle.copyWith(
+  // Heading Styles
+  static TextStyle get h1 => GoogleFonts.inter(
         fontSize: 32,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.bold,
+        color: AppColors.textPrimary,
+        height: 1.2,
       );
 
-  static TextStyle get headlineMedium => _baseTextStyle.copyWith(
+  static TextStyle get h2 => GoogleFonts.inter(
         fontSize: 28,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.bold,
+        color: AppColors.textPrimary,
+        height: 1.2,
       );
 
-  static TextStyle get headlineSmall => _baseTextStyle.copyWith(
+  static TextStyle get h3 => GoogleFonts.inter(
         fontSize: 24,
-        fontWeight: FontWeight.w400,
-      );
-
-  // Title styles
-  static TextStyle get titleLarge => _baseTextStyle.copyWith(
-        fontSize: 22,
-        fontWeight: FontWeight.w500,
-      );
-
-  static TextStyle get titleMedium => _baseTextStyle.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.15,
-      );
-
-  static TextStyle get titleSmall => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.1,
-      );
-
-  // Label styles
-  static TextStyle get labelLarge => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.1,
-      );
-
-  static TextStyle get labelMedium => _baseTextStyle.copyWith(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.5,
-      );
-
-  static TextStyle get labelSmall => _baseTextStyle.copyWith(
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.5,
-      );
-
-  // Body styles
-  static TextStyle get bodyLarge => _baseTextStyle.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.5,
-      );
-
-  static TextStyle get bodyMedium => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.25,
-      );
-
-  static TextStyle get bodySmall => _baseTextStyle.copyWith(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.4,
-      );
-
-  // Custom app-specific styles
-  static TextStyle get priceText => _baseTextStyle.copyWith(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: AppColors.primary,
-      );
-
-  static TextStyle get priceLarge => _baseTextStyle.copyWith(
-        fontSize: 24,
-        fontWeight: FontWeight.w700,
-        color: AppColors.primary,
-      );
-
-  static TextStyle get priceSmall => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: AppColors.primary,
-      );
-
-  static TextStyle get storeName => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: AppColors.textSecondary,
-      );
-
-  static TextStyle get productName => _baseTextStyle.copyWith(
-        fontSize: 16,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimary,
+        height: 1.3,
       );
 
-  static TextStyle get buttonText => _baseTextStyle.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 0.1,
-      );
-
-  static TextStyle get buttonTextSmall => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 0.1,
-      );
-
-  static TextStyle get chipText => _baseTextStyle.copyWith(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-      );
-
-  static TextStyle get hintText => _baseTextStyle.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: AppColors.textHint,
-      );
-
-  static TextStyle get errorText => _baseTextStyle.copyWith(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: AppColors.error,
-      );
-
-  static TextStyle get successText => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: AppColors.success,
-      );
-
-  static TextStyle get warningText => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: AppColors.warning,
-      );
-
-  static TextStyle get priceUpText => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: AppColors.priceUp,
-      );
-
-  static TextStyle get priceDownText => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: AppColors.priceDown,
-      );
-
-  static TextStyle get appBarTitle => _baseTextStyle.copyWith(
+  static TextStyle get h4 => GoogleFonts.inter(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: AppColors.surface,
+        color: AppColors.textPrimary,
+        height: 1.3,
       );
 
-  static TextStyle get tabBarText => _baseTextStyle.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
+  static TextStyle get h5 => GoogleFonts.inter(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+        height: 1.4,
       );
 
-  static TextStyle get cardTitle => _baseTextStyle.copyWith(
+  static TextStyle get h6 => GoogleFonts.inter(
         fontSize: 16,
         fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+        height: 1.4,
       );
 
-  static TextStyle get cardSubtitle => _baseTextStyle.copyWith(
+  // Body Text Styles
+  static TextStyle get bodyLarge => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textPrimary,
+        height: 1.5,
+      );
+
+  static TextStyle get bodyMedium => GoogleFonts.inter(
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textPrimary,
+        height: 1.5,
+      );
+
+  static TextStyle get bodySmall => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
         color: AppColors.textSecondary,
+        height: 1.4,
+      );
+
+  // Label Styles
+  static TextStyle get labelLarge => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textPrimary,
+        height: 1.4,
+      );
+
+  static TextStyle get labelMedium => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textSecondary,
+        height: 1.3,
+      );
+
+  static TextStyle get labelSmall => GoogleFonts.inter(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textTertiary,
+        height: 1.2,
+      );
+
+  // Button Text Styles
+  static TextStyle get buttonLarge => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+        height: 1.2,
+      );
+
+  static TextStyle get buttonMedium => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+        height: 1.2,
+      );
+
+  static TextStyle get buttonSmall => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+        height: 1.2,
+      );
+
+  // Caption and Overline
+  static TextStyle get caption => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textTertiary,
+        height: 1.3,
+      );
+
+  static TextStyle get overline => GoogleFonts.inter(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textTertiary,
+        height: 1.6,
+        letterSpacing: 1.5,
+      );
+
+  // App-specific Styles
+  static TextStyle get appBarTitle => GoogleFonts.inter(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+        height: 1.2,
+      );
+
+  static TextStyle get navigationLabel => GoogleFonts.inter(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textSecondary,
+        height: 1.2,
+      );
+
+  static TextStyle get priceText => GoogleFonts.inter(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: AppColors.textPrimary,
+        height: 1.2,
+      );
+
+  static TextStyle get priceTrend => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        height: 1.2,
+      );
+
+  static TextStyle get cardTitle => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+        height: 1.3,
+      );
+
+  static TextStyle get cardSubtitle => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textSecondary,
+        height: 1.3,
+      );
+
+  static TextStyle get inputLabel => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textPrimary,
+        height: 1.2,
+      );
+
+  static TextStyle get inputText => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textPrimary,
+        height: 1.2,
+      );
+
+  static TextStyle get inputHint => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textHint,
+        height: 1.2,
+      );
+
+  static TextStyle get linkText => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.primary,
+        height: 1.2,
+        decoration: TextDecoration.underline,
+      );
+
+  static TextStyle get errorText => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: AppColors.error,
+        height: 1.3,
+      );
+
+  static TextStyle get successText => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: AppColors.success,
+        height: 1.3,
+      );
+
+  // Market/Store specific styles
+  static TextStyle get storeName => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+        height: 1.2,
+      );
+
+  static TextStyle get storeDistance => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: AppColors.textSecondary,
+        height: 1.2,
+      );
+
+  static TextStyle get productName => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textPrimary,
+        height: 1.3,
+      );
+
+  static TextStyle get categoryLabel => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+        height: 1.2,
       );
 }

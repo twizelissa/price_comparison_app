@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 class Store extends Equatable {
   final String id;
@@ -133,30 +134,45 @@ class Store extends Equatable {
 
   bool get isOpen {
     if (openTime == null || closeTime == null) return true;
-    
+
     final now = DateTime.now();
     final currentDay = _getCurrentDayName();
-    
+
     if (!openDays.contains(currentDay)) return false;
-    
+
     final currentTime = TimeOfDay.fromDateTime(now);
     final openTimeOfDay = TimeOfDay.fromDateTime(openTime!);
     final closeTimeOfDay = TimeOfDay.fromDateTime(closeTime!);
-    
+
     return _isTimeInRange(currentTime, openTimeOfDay, closeTimeOfDay);
   }
 
   String get operatingHours {
     if (openTime == null || closeTime == null) return 'Hours not specified';
-    
+
     final openHour = TimeOfDay.fromDateTime(openTime!);
     final closeHour = TimeOfDay.fromDateTime(closeTime!);
-    
-    return '${openHour.format(null)} - ${closeHour.format(null)}';
+
+    return '${_formatTimeOfDay(openHour)} - ${_formatTimeOfDay(closeHour)}';
+  }
+
+  String _formatTimeOfDay(TimeOfDay time) {
+    final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
+    final minute = time.minute.toString().padLeft(2, '0');
+    final period = time.period == DayPeriod.am ? 'AM' : 'PM';
+    return '$hour:$minute $period';
   }
 
   String _getCurrentDayName() {
-    final days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    final days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
     return days[DateTime.now().weekday - 1];
   }
 
@@ -164,7 +180,7 @@ class Store extends Equatable {
     final currentMinutes = current.hour * 60 + current.minute;
     final startMinutes = start.hour * 60 + start.minute;
     final endMinutes = end.hour * 60 + end.minute;
-    
+
     if (startMinutes <= endMinutes) {
       return currentMinutes >= startMinutes && currentMinutes <= endMinutes;
     } else {
