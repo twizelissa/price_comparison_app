@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kigali_price_check/core/constants/app_colors.dart';
+import 'app_colors.dart';
 
 class AppTextStyles {
   // Base font family
