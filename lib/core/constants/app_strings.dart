@@ -32,9 +32,12 @@ class AppStrings {
   // Home
   static const String welcome = 'Welcome';
   static const String searchProducts = 'Search products...';
+  static const String searchPlaceholder = 'Search products...';
   static const String trendingProducts = 'Trending Products';
+  static const String trendingPriceChecks = 'Trending Price Checks';
   static const String nearbyStores = 'Nearby Stores';
   static const String categories = 'Categories';
+  static const String quickCategories = 'Quick Categories';
   static const String seeAll = 'See All';
   
   // Price Comparison
