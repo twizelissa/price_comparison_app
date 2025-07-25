@@ -180,7 +180,7 @@ extension CategoryStatusExtension on CategoryStatus {
 
 // Predefined categories for the app
 class AppCategories {
-  static const List<Category> defaultCategories = [
+  static List<Category> defaultCategories = [
     Category(
       id: 'food',
       name: 'food',
@@ -249,7 +249,7 @@ class AppCategories {
     ),
   ];
 
-  static const DateTime _defaultDate = DateTime(2024, 1, 1);
+  static final DateTime _defaultDate = DateTime(2024, 1, 1);
 
   static Category? getCategoryById(String id) {
     try {

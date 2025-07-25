@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../shared/widgets/custom_app_bar.dart';
 import '../../../../shared/utils/currency_formatter.dart';
 import '../../../home/data/models/product_model.dart';
 
