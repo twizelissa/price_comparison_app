@@ -39,6 +39,7 @@ dependencies:
   # Image & Media
   image_picker: ^1.0.4
   cached_network_image: ^3.2.3
+  cloudinary_public: ^0.21.0
 
   # Utils
   intl: ^0.18.1
@@ -48,6 +49,7 @@ dependencies:
 
   # Location
   geolocator: ^10.1.0
+  url_launcher: ^6.1.14
   geocoding: ^2.1.1
 
   # Charts
@@ -73,16 +75,17 @@ flutter:
   uses-material-design: true
   
   assets:
+    - assets/images/products/
     - assets/images/
     - assets/icons/
     - .env
   
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
-        - asset: assets/fonts/Roboto-Bold.ttf
-          weight: 700
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: assets/fonts/Roboto-Regular.ttf
+  #       - asset: assets/fonts/Roboto-Bold.ttf
+  #         weight: 700
   # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
