@@ -1,0 +1,34 @@
+{
+  "project_info": {
+    "project_number": "55226443629",
+    "project_id": "kigalipricecheck",
+    "storage_bucket": "kigalipricecheck.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55226443629:web:webappid",
+        "web_client_info": {
+          "client_id": "55226443629-web-client.apps.googleusercontent.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55226443629-web-client.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcLrqoZClkj_zrr1li7ZomOoKHwvIBCa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
