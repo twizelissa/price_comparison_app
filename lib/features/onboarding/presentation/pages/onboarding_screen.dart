@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextButton(
-                  onPressed: _goToSignIn,
+                  onPressed: _goToMainApp,
                   child: Text(
                     'Skip',
                     style: AppTextStyles.h6.copyWith(
@@ -97,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 52,
                 child: ElevatedButton(
                   onPressed: _currentPage == _onboardingData.length - 1
-                      ? _goToSignIn
+                      ? _goToMainApp
                       : _nextPage,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
@@ -188,8 +188,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _goToSignIn() {
-    Navigator.pushReplacementNamed(context, RouteNames.signIn);
+  void _goToMainApp() {
+    Navigator.pushReplacementNamed(context, RouteNames.mainNavigation);
   }
 
   @override
