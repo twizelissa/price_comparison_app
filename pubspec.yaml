@@ -32,7 +32,7 @@ dependencies:
   connectivity_plus: ^4.0.2
 
   # Local Storage
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.5.3
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
