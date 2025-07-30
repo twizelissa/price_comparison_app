@@ -32,7 +32,7 @@ dependencies:
   connectivity_plus: ^4.0.2
 
   # Local Storage
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.2.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
@@ -76,13 +76,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - .env
-  
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
-        - asset: assets/fonts/Roboto-Bold.ttf
-          weight: 700
   # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
