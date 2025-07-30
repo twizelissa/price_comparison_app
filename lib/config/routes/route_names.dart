@@ -16,6 +16,7 @@ class RouteNames {
   static const String searchResults = '/search-results';
   static const String priceComparison = '/price-comparison';
   static const String productDetail = '/product-detail';
+  static const String productDetails = '/product-details';
   
   // Add Price Routes
   static const String addPrice = '/add-price';
