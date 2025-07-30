@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../config/routes/route_names.dart';
+import 'sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -24,10 +25,10 @@ class _SignInScreenState extends State<SignInScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
-          onPressed: () => Navigator.pop(context),
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
+        //   onPressed: () => Navigator.pop(context),
+        // ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,25 +39,20 @@ class _SignInScreenState extends State<SignInScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                
                 Text(
                   'Welcome Back!',
                   style: AppTextStyles.h1.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                
                 const SizedBox(height: 8),
-                
                 Text(
                   'Sign in to your account',
                   style: AppTextStyles.h5.copyWith(
                     color: AppColors.textSecondary,
                   ),
                 ),
-                
                 const SizedBox(height: 40),
-                
                 Text(
                   'Email',
                   style: AppTextStyles.h6.copyWith(
@@ -83,22 +79,23 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                      borderSide:
+                          const BorderSide(color: AppColors.primary, width: 2),
                     ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
                     }
-                    if (!value.contains('@')); {
-                      return 'Please enter a valid email';
+                    final emailRegex =
+                        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email (e.g., user@example.com)';
                     }
                     return null;
                   },
                 ),
-                
                 const SizedBox(height: 20),
-                
                 Text(
                   'Password',
                   style: AppTextStyles.h6.copyWith(
@@ -117,7 +114,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -135,7 +134,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                      borderSide:
+                          const BorderSide(color: AppColors.primary, width: 2),
                     ),
                   ),
                   validator: (value) {
@@ -148,9 +148,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     return null;
                   },
                 ),
-                
                 const SizedBox(height: 30),
-                
                 SizedBox(
                   width: double.infinity,
                   height: 52,
@@ -174,9 +172,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                   ),
                 ),
-                
                 const SizedBox(height: 40),
-                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -188,7 +184,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, RouteNames.signUp);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()),
+                        );
                       },
                       child: Text(
                         'Sign Up',
@@ -213,14 +213,14 @@ class _SignInScreenState extends State<SignInScreen> {
       setState(() {
         _isLoading = true;
       });
-      
+
       await Future.delayed(const Duration(seconds: 2));
-      
+
       if (mounted) {
         setState(() {
           _isLoading = false;
         });
-        
+
         Navigator.pushReplacementNamed(context, RouteNames.mainNavigation);
       }
     }
