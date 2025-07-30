@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../core/constants/app_dimensions.dart';
+import 'theme_data.dart' as app_theme_data;
 
 class AppTheme {
   static ThemeData get lightTheme {
+    final fontScale = app_theme_data.ThemeData.fontScaleFactor;
+    
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
@@ -28,7 +31,9 @@ class AppTheme {
         foregroundColor: AppColors.textPrimary,
         elevation: AppDimensions.appBarElevation,
         centerTitle: true,
-        titleTextStyle: AppTextStyles.appBarTitle,
+        titleTextStyle: AppTextStyles.appBarTitle.copyWith(
+          fontSize: AppTextStyles.appBarTitle.fontSize! * fontScale,
+        ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
@@ -46,12 +51,15 @@ class AppTheme {
         selectedLabelStyle: AppTextStyles.navigationLabel.copyWith(
           color: AppColors.primary,
           fontWeight: FontWeight.w600,
+          fontSize: AppTextStyles.navigationLabel.fontSize! * fontScale,
         ),
-        unselectedLabelStyle: AppTextStyles.navigationLabel,
+        unselectedLabelStyle: AppTextStyles.navigationLabel.copyWith(
+          fontSize: AppTextStyles.navigationLabel.fontSize! * fontScale,
+        ),
       ),
       
       // Card Theme
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: AppDimensions.cardElevation,
         shape: RoundedRectangleBorder(
@@ -91,9 +99,15 @@ class AppTheme {
           horizontal: AppDimensions.inputPaddingH,
           vertical: AppDimensions.inputPaddingV,
         ),
-        hintStyle: AppTextStyles.inputHint,
-        labelStyle: AppTextStyles.inputLabel,
-        errorStyle: AppTextStyles.errorText,
+        hintStyle: AppTextStyles.inputHint.copyWith(
+          fontSize: AppTextStyles.inputHint.fontSize! * fontScale,
+        ),
+        labelStyle: AppTextStyles.inputLabel.copyWith(
+          fontSize: AppTextStyles.inputLabel.fontSize! * fontScale,
+        ),
+        errorStyle: AppTextStyles.errorText.copyWith(
+          fontSize: AppTextStyles.errorText.fontSize! * fontScale,
+        ),
       ),
       
       // Elevated Button Theme
@@ -111,7 +125,9 @@ class AppTheme {
             horizontal: AppDimensions.buttonPaddingH,
             vertical: AppDimensions.buttonPaddingV,
           ),
-          textStyle: AppTextStyles.buttonLarge,
+          textStyle: AppTextStyles.buttonLarge.copyWith(
+            fontSize: AppTextStyles.buttonLarge.fontSize! * fontScale,
+          ),
         ),
       ),
       
@@ -121,6 +137,7 @@ class AppTheme {
           foregroundColor: AppColors.primary,
           textStyle: AppTextStyles.buttonMedium.copyWith(
             color: AppColors.primary,
+            fontSize: AppTextStyles.buttonMedium.fontSize! * fontScale,
           ),
         ),
       ),
@@ -140,6 +157,7 @@ class AppTheme {
           ),
           textStyle: AppTextStyles.buttonLarge.copyWith(
             color: AppColors.primary,
+            fontSize: AppTextStyles.buttonLarge.fontSize! * fontScale,
           ),
         ),
       ),
@@ -165,37 +183,51 @@ class AppTheme {
           horizontal: AppDimensions.listItemPadding,
           vertical: AppDimensions.paddingS,
         ),
-        titleTextStyle: AppTextStyles.bodyLarge,
-        subtitleTextStyle: AppTextStyles.bodySmall,
+        titleTextStyle: AppTextStyles.bodyLarge.copyWith(
+          fontSize: AppTextStyles.bodyLarge.fontSize! * fontScale,
+        ),
+        subtitleTextStyle: AppTextStyles.bodySmall.copyWith(
+          fontSize: AppTextStyles.bodySmall.fontSize! * fontScale,
+        ),
       ),
       
       // Dialog Theme
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.dialogRadius),
         ),
-        titleTextStyle: AppTextStyles.h5,
-        contentTextStyle: AppTextStyles.bodyMedium,
+        titleTextStyle: AppTextStyles.h5.copyWith(
+          fontSize: AppTextStyles.h5.fontSize! * fontScale,
+        ),
+        contentTextStyle: AppTextStyles.bodyMedium.copyWith(
+          fontSize: AppTextStyles.bodyMedium.fontSize! * fontScale,
+        ),
       ),
       
       // Snackbar Theme
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.textPrimary,
-        contentTextStyle: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
+        contentTextStyle: AppTextStyles.bodyMedium.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.bodyMedium.fontSize! * fontScale,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.snackbarRadius),
         ),
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(AppDimensions.snackbarMargin),
       ),
       
       // Tab Bar Theme
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColors.primary,
         unselectedLabelColor: AppColors.textSecondary,
-        labelStyle: AppTextStyles.labelLarge,
-        unselectedLabelStyle: AppTextStyles.labelLarge,
+        labelStyle: AppTextStyles.labelLarge.copyWith(
+          fontSize: AppTextStyles.labelLarge.fontSize! * fontScale,
+        ),
+        unselectedLabelStyle: AppTextStyles.labelLarge.copyWith(
+          fontSize: AppTextStyles.labelLarge.fontSize! * fontScale,
+        ),
         indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(
             color: AppColors.primary,
@@ -208,7 +240,9 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.cardBackground,
         selectedColor: AppColors.primary,
-        labelStyle: AppTextStyles.labelSmall,
+        labelStyle: AppTextStyles.labelSmall.copyWith(
+          fontSize: AppTextStyles.labelSmall.fontSize! * fontScale,
+        ),
         padding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.chipPadding,
         ),
@@ -224,28 +258,60 @@ class AppTheme {
         circularTrackColor: AppColors.cardBackground,
       ),
       
-      // Text Theme
+      // Text Theme with font scaling
       textTheme: TextTheme(
-        displayLarge: AppTextStyles.h1,
-        displayMedium: AppTextStyles.h2,
-        displaySmall: AppTextStyles.h3,
-        headlineLarge: AppTextStyles.h3,
-        headlineMedium: AppTextStyles.h4,
-        headlineSmall: AppTextStyles.h5,
-        titleLarge: AppTextStyles.h5,
-        titleMedium: AppTextStyles.h6,
-        titleSmall: AppTextStyles.labelLarge,
-        bodyLarge: AppTextStyles.bodyLarge,
-        bodyMedium: AppTextStyles.bodyMedium,
-        bodySmall: AppTextStyles.bodySmall,
-        labelLarge: AppTextStyles.labelLarge,
-        labelMedium: AppTextStyles.labelMedium,
-        labelSmall: AppTextStyles.labelSmall,
+        displayLarge: AppTextStyles.h1.copyWith(
+          fontSize: AppTextStyles.h1.fontSize! * fontScale,
+        ),
+        displayMedium: AppTextStyles.h2.copyWith(
+          fontSize: AppTextStyles.h2.fontSize! * fontScale,
+        ),
+        displaySmall: AppTextStyles.h3.copyWith(
+          fontSize: AppTextStyles.h3.fontSize! * fontScale,
+        ),
+        headlineLarge: AppTextStyles.h3.copyWith(
+          fontSize: AppTextStyles.h3.fontSize! * fontScale,
+        ),
+        headlineMedium: AppTextStyles.h4.copyWith(
+          fontSize: AppTextStyles.h4.fontSize! * fontScale,
+        ),
+        headlineSmall: AppTextStyles.h5.copyWith(
+          fontSize: AppTextStyles.h5.fontSize! * fontScale,
+        ),
+        titleLarge: AppTextStyles.h5.copyWith(
+          fontSize: AppTextStyles.h5.fontSize! * fontScale,
+        ),
+        titleMedium: AppTextStyles.h6.copyWith(
+          fontSize: AppTextStyles.h6.fontSize! * fontScale,
+        ),
+        titleSmall: AppTextStyles.labelLarge.copyWith(
+          fontSize: AppTextStyles.labelLarge.fontSize! * fontScale,
+        ),
+        bodyLarge: AppTextStyles.bodyLarge.copyWith(
+          fontSize: AppTextStyles.bodyLarge.fontSize! * fontScale,
+        ),
+        bodyMedium: AppTextStyles.bodyMedium.copyWith(
+          fontSize: AppTextStyles.bodyMedium.fontSize! * fontScale,
+        ),
+        bodySmall: AppTextStyles.bodySmall.copyWith(
+          fontSize: AppTextStyles.bodySmall.fontSize! * fontScale,
+        ),
+        labelLarge: AppTextStyles.labelLarge.copyWith(
+          fontSize: AppTextStyles.labelLarge.fontSize! * fontScale,
+        ),
+        labelMedium: AppTextStyles.labelMedium.copyWith(
+          fontSize: AppTextStyles.labelMedium.fontSize! * fontScale,
+        ),
+        labelSmall: AppTextStyles.labelSmall.copyWith(
+          fontSize: AppTextStyles.labelSmall.fontSize! * fontScale,
+        ),
       ),
     );
   }
   
   static ThemeData get darkTheme {
+    final fontScale = app_theme_data.ThemeData.fontScaleFactor;
+    
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
@@ -268,7 +334,10 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: AppDimensions.appBarElevation,
         centerTitle: true,
-        titleTextStyle: AppTextStyles.appBarTitle.copyWith(color: Colors.white),
+        titleTextStyle: AppTextStyles.appBarTitle.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.appBarTitle.fontSize! * fontScale,
+        ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
@@ -277,7 +346,7 @@ class AppTheme {
       ),
       
       // Card Theme (Dark)
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: const Color(0xFF1E1E1E),
         elevation: AppDimensions.cardElevation,
         shape: RoundedRectangleBorder(
@@ -317,28 +386,81 @@ class AppTheme {
           horizontal: AppDimensions.inputPaddingH,
           vertical: AppDimensions.inputPaddingV,
         ),
-        hintStyle: AppTextStyles.inputHint.copyWith(color: Colors.white54),
-        labelStyle: AppTextStyles.inputLabel.copyWith(color: Colors.white),
-        errorStyle: AppTextStyles.errorText,
+        hintStyle: AppTextStyles.inputHint.copyWith(
+          color: Colors.white54,
+          fontSize: AppTextStyles.inputHint.fontSize! * fontScale,
+        ),
+        labelStyle: AppTextStyles.inputLabel.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.inputLabel.fontSize! * fontScale,
+        ),
+        errorStyle: AppTextStyles.errorText.copyWith(
+          fontSize: AppTextStyles.errorText.fontSize! * fontScale,
+        ),
       ),
       
-      // Text Theme (Dark)
+      // Text Theme (Dark) with font scaling
       textTheme: TextTheme(
-        displayLarge: AppTextStyles.h1.copyWith(color: Colors.white),
-        displayMedium: AppTextStyles.h2.copyWith(color: Colors.white),
-        displaySmall: AppTextStyles.h3.copyWith(color: Colors.white),
-        headlineLarge: AppTextStyles.h3.copyWith(color: Colors.white),
-        headlineMedium: AppTextStyles.h4.copyWith(color: Colors.white),
-        headlineSmall: AppTextStyles.h5.copyWith(color: Colors.white),
-        titleLarge: AppTextStyles.h5.copyWith(color: Colors.white),
-        titleMedium: AppTextStyles.h6.copyWith(color: Colors.white),
-        titleSmall: AppTextStyles.labelLarge.copyWith(color: Colors.white),
-        bodyLarge: AppTextStyles.bodyLarge.copyWith(color: Colors.white),
-        bodyMedium: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
-        bodySmall: AppTextStyles.bodySmall.copyWith(color: Colors.white70),
-        labelLarge: AppTextStyles.labelLarge.copyWith(color: Colors.white),
-        labelMedium: AppTextStyles.labelMedium.copyWith(color: Colors.white70),
-        labelSmall: AppTextStyles.labelSmall.copyWith(color: Colors.white54),
+        displayLarge: AppTextStyles.h1.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h1.fontSize! * fontScale,
+        ),
+        displayMedium: AppTextStyles.h2.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h2.fontSize! * fontScale,
+        ),
+        displaySmall: AppTextStyles.h3.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h3.fontSize! * fontScale,
+        ),
+        headlineLarge: AppTextStyles.h3.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h3.fontSize! * fontScale,
+        ),
+        headlineMedium: AppTextStyles.h4.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h4.fontSize! * fontScale,
+        ),
+        headlineSmall: AppTextStyles.h5.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h5.fontSize! * fontScale,
+        ),
+        titleLarge: AppTextStyles.h5.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h5.fontSize! * fontScale,
+        ),
+        titleMedium: AppTextStyles.h6.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.h6.fontSize! * fontScale,
+        ),
+        titleSmall: AppTextStyles.labelLarge.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.labelLarge.fontSize! * fontScale,
+        ),
+        bodyLarge: AppTextStyles.bodyLarge.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.bodyLarge.fontSize! * fontScale,
+        ),
+        bodyMedium: AppTextStyles.bodyMedium.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.bodyMedium.fontSize! * fontScale,
+        ),
+        bodySmall: AppTextStyles.bodySmall.copyWith(
+          color: Colors.white70,
+          fontSize: AppTextStyles.bodySmall.fontSize! * fontScale,
+        ),
+        labelLarge: AppTextStyles.labelLarge.copyWith(
+          color: Colors.white,
+          fontSize: AppTextStyles.labelLarge.fontSize! * fontScale,
+        ),
+        labelMedium: AppTextStyles.labelMedium.copyWith(
+          color: Colors.white70,
+          fontSize: AppTextStyles.labelMedium.fontSize! * fontScale,
+        ),
+        labelSmall: AppTextStyles.labelSmall.copyWith(
+          color: Colors.white54,
+          fontSize: AppTextStyles.labelSmall.fontSize! * fontScale,
+        ),
       ),
     );
   }

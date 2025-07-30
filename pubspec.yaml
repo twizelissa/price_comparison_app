@@ -73,8 +73,7 @@ flutter:
   uses-material-design: true
   
   assets:
-    - assets/images/
-    - assets/icons/
+    - assets/screenshot/
     - .env
   # https://flutter.dev/assets-and-images/#from-packages
 
