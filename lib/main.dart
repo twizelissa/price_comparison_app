@@ -1,77 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:kigali_price_check/config/theme/app_theme.dart';
-import 'package:kigali_price_check/config/theme/theme_data.dart' as app_theme;
-import 'core/constants/app_strings.dart';
-import 'config/routes/app_router.dart';
-import 'config/routes/route_names.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:price_comparison_app/config/routes/app_router.dart';
+import 'package:price_comparison_app/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:price_comparison_app/features/authentication/presentation/bloc/auth_event.dart';
+import 'package:price_comparison_app/features/authentication/presentation/bloc/auth_state.dart';
+import 'package:price_comparison_app/features/splash/presentation/pages/splash_screen.dart';
+import 'package:price_comparison_app/core/services/cloudinary_service.dart';
+import 'package:price_comparison_app/core/config/cloudinary_config.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize theme and preferences
-  await app_theme.ThemeData.initialize();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    print('Firebase initialization error: $e');
+  }
+
+  // Initialize Cloudinary
+  try {
+    CloudinaryService.initialize(cloudName: CloudinaryConfig.cloudName);
+    print('Cloudinary initialized successfully');
+  } catch (e) {
+    print('Cloudinary initialization error: $e');
+  }
   
   runApp(const KigaliPriceCheckApp());
 }
 
-class KigaliPriceCheckApp extends StatefulWidget {
+class KigaliPriceCheckApp extends StatelessWidget {
   const KigaliPriceCheckApp({Key? key}) : super(key: key);
 
   @override
-  State<KigaliPriceCheckApp> createState() => _KigaliPriceCheckAppState();
-}
-
-class _KigaliPriceCheckAppState extends State<KigaliPriceCheckApp> {
-  @override
-  void initState() {
-    super.initState();
-    // Add listeners for theme and settings changes
-    app_theme.ThemeData.addThemeChangeListener(_updateTheme);
-    app_theme.ThemeData.addSettingsChangeListener(_updateSettings);
-  }
-
-  @override
-  void dispose() {
-    // Remove listeners when widget is disposed
-    app_theme.ThemeData.removeThemeChangeListener(_updateTheme);
-    app_theme.ThemeData.removeSettingsChangeListener(_updateSettings);
-    super.dispose();
-  }
-
-  void _updateTheme() {
-    setState(() {}); // Rebuild with new theme settings
-  }
-
-  void _updateSettings() {
-    setState(() {}); // Rebuild with new language/font size settings
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: AppStrings.appName,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: app_theme.ThemeData.themeMode,
-      locale: app_theme.ThemeData.locale,
-      supportedLocales: const [
-        Locale('en', 'US'), // English
-        Locale('rw', 'RW'), // Kinyarwanda
-        Locale('fr', 'FR'), // French
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc()..add(AuthStarted()),
+        ),
       ],
-      initialRoute: RouteNames.splash,
-      onGenerateRoute: AppRouter.onGenerateRoute,
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) {
-        // Apply font scaling to all text in the app
-        final mediaQuery = MediaQuery.of(context);
-        return MediaQuery(
-          data: mediaQuery.copyWith(
-            textScaleFactor: mediaQuery.textScaleFactor * app_theme.ThemeData.fontScaleFactor,
-          ),
-          child: child!,
-        );
-      },
+      child: MaterialApp(
+        title: 'Kigali Price Check',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            // Start with splash screen for proper flow
+            return const SplashScreen();
+          },
+        ),
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../bloc/home_bloc.dart';
-import '../bloc/home_state.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final TextEditingController? controller;
@@ -128,19 +125,24 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           ),
         ),
         
-        // Search suggestions
+        // Search suggestions (simplified - no BlocBuilder)
         if (_showSuggestions)
-          BlocBuilder<HomeBloc, HomeState>(
-            buildWhen: (previous, current) => 
-                current is SearchSuggestionsLoaded ||
-                current is SearchError,
-            builder: (context, state) {
-              if (state is SearchSuggestionsLoaded && 
-                  state.suggestions.isNotEmpty) {
-                return _buildSuggestions(state.suggestions);
-              }
-              return const SizedBox.shrink();
-            },
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text('No suggestions available'),
+            ),
           ),
       ],
     );

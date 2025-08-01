@@ -1,142 +1,69 @@
 import 'package:equatable/equatable.dart';
 
+enum UserRole { user, admin }
+
 class User extends Equatable {
   final String id;
   final String email;
-  final String fullName;
-  final String phoneNumber;
-  final String? location;
+  final String firstName;
+  final String lastName;
   final String? profileImageUrl;
-  final DateTime createdAt;
-  final DateTime? updatedAt;
-  final bool isEmailVerified;
-  final bool isPhoneVerified;
-  final int priceSubmissions;
-  final int savedProducts;
+  final DateTime? createdAt;
+  final DateTime? lastSignIn;
   final UserRole role;
-  final UserStatus status;
 
   const User({
     required this.id,
     required this.email,
-    required this.fullName,
-    required this.phoneNumber,
-    this.location,
+    required this.firstName,
+    required this.lastName,
     this.profileImageUrl,
-    required this.createdAt,
-    this.updatedAt,
-    required this.isEmailVerified,
-    required this.isPhoneVerified,
-    this.priceSubmissions = 0,
-    this.savedProducts = 0,
+    this.createdAt,
+    this.lastSignIn,
     this.role = UserRole.user,
-    this.status = UserStatus.active,
   });
+
+  String get fullName => '$firstName $lastName';
+  
+  String get initials {
+    final first = firstName.isNotEmpty ? firstName[0].toUpperCase() : '';
+    final last = lastName.isNotEmpty ? lastName[0].toUpperCase() : '';
+    return '$first$last';
+  }
+
+  bool get isAdmin => role == UserRole.admin;
+
+  User copyWith({
+    String? id,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? profileImageUrl,
+    DateTime? createdAt,
+    DateTime? lastSignIn,
+    UserRole? role,
+  }) {
+    return User(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+      createdAt: createdAt ?? this.createdAt,
+      lastSignIn: lastSignIn ?? this.lastSignIn,
+      role: role ?? this.role,
+    );
+  }
 
   @override
   List<Object?> get props => [
         id,
         email,
-        fullName,
-        phoneNumber,
-        location,
+        firstName,
+        lastName,
         profileImageUrl,
         createdAt,
-        updatedAt,
-        isEmailVerified,
-        isPhoneVerified,
-        priceSubmissions,
-        savedProducts,
+        lastSignIn,
         role,
-        status,
       ];
-
-  User copyWith({
-    String? id,
-    String? email,
-    String? fullName,
-    String? phoneNumber,
-    String? location,
-    String? profileImageUrl,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    bool? isEmailVerified,
-    bool? isPhoneVerified,
-    int? priceSubmissions,
-    int? savedProducts,
-    UserRole? role,
-    UserStatus? status,
-  }) {
-    return User(
-      id: id ?? this.id,
-      email: email ?? this.email,
-      fullName: fullName ?? this.fullName,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      location: location ?? this.location,
-      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      isEmailVerified: isEmailVerified ?? this.isEmailVerified,
-      isPhoneVerified: isPhoneVerified ?? this.isPhoneVerified,
-      priceSubmissions: priceSubmissions ?? this.priceSubmissions,
-      savedProducts: savedProducts ?? this.savedProducts,
-      role: role ?? this.role,
-      status: status ?? this.status,
-    );
-  }
-
-  // Helper getters
-  bool get isVerified => isEmailVerified && isPhoneVerified;
-  String get displayName => fullName.isNotEmpty ? fullName : email;
-  String get initials {
-    if (fullName.isEmpty) return email.substring(0, 1).toUpperCase();
-    List<String> names = fullName.split(' ');
-    if (names.length >= 2) {
-      return '${names[0][0]}${names[1][0]}'.toUpperCase();
-    }
-    return fullName.substring(0, 1).toUpperCase();
-  }
-}
-
-enum UserRole {
-  user,
-  moderator,
-  admin,
-}
-
-enum UserStatus {
-  active,
-  inactive,
-  suspended,
-  deleted,
-}
-
-extension UserRoleExtension on UserRole {
-  String get displayName {
-    switch (this) {
-      case UserRole.user:
-        return 'User';
-      case UserRole.moderator:
-        return 'Moderator';
-      case UserRole.admin:
-        return 'Admin';
-    }
-  }
-}
-
-extension UserStatusExtension on UserStatus {
-  String get displayName {
-    switch (this) {
-      case UserStatus.active:
-        return 'Active';
-      case UserStatus.inactive:
-        return 'Inactive';
-      case UserStatus.suspended:
-        return 'Suspended';
-      case UserStatus.deleted:
-        return 'Deleted';
-    }
-  }
-
-  bool get isActive => this == UserStatus.active;
 }

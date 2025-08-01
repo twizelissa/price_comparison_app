@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '../../../search/presentation/pages/search_page.dart';
-import '../../../favorites/presentation/pages/favorites_page.dart';
+import '../../../profile/presentation/pages/saved_products_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _screens = [
     const HomePage(),
     const SearchPage(),
-    const FavoritesPage(),
+    const SavedProductsPage(),
     const ProfilePage(),
   ];
 

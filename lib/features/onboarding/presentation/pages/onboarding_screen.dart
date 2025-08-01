@@ -17,19 +17,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<OnboardingData> _onboardingData = [
     OnboardingData(
       title: 'Compare Prices',
-      description: 'Find the best prices for your favorite products across multiple stores in Rwanda',
+      description:
+          'Find the best prices for your favorite products across multiple stores in Rwanda',
       icon: Icons.compare_arrows,
       color: AppColors.primary,
     ),
     OnboardingData(
       title: 'Save Money',
-      description: 'Save money by finding the lowest prices and best deals in your area',
+      description:
+          'Save money by finding the lowest prices and best deals in your area',
       icon: Icons.savings_outlined,
       color: Colors.green,
     ),
     OnboardingData(
       title: 'Find Nearby Stores',
-      description: 'Locate stores near you and check their product availability and prices',
+      description:
+          'Locate stores near you and check their product availability and prices',
       icon: Icons.location_on_outlined,
       color: Colors.orange,
     ),
@@ -48,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextButton(
-                  onPressed: _goToSignIn,
+                  onPressed: _goToMainApp,
                   child: Text(
                     'Skip',
                     style: AppTextStyles.h6.copyWith(
@@ -58,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
             ),
-            
+
             // Page view
             Expanded(
               child: PageView.builder(
@@ -74,7 +77,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-            
+
             // Page indicator
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -83,9 +86,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 (index) => _buildPageIndicator(index),
               ),
             ),
-            
+
             const SizedBox(height: 40),
-            
+
             // Next/Get Started button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -94,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 52,
                 child: ElevatedButton(
                   onPressed: _currentPage == _onboardingData.length - 1
-                      ? _goToSignIn
+                      ? _goToMainApp
                       : _nextPage,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
@@ -115,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 40),
           ],
         ),
@@ -142,9 +145,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               color: data.color,
             ),
           ),
-          
           const SizedBox(height: 40),
-          
           Text(
             data.title,
             style: AppTextStyles.h2.copyWith(
@@ -152,9 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          
           const SizedBox(height: 16),
-          
           Text(
             data.description,
             style: AppTextStyles.h5.copyWith(
@@ -174,8 +173,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: _currentPage == index ? 24 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: _currentPage == index 
-            ? AppColors.primary 
+        color: _currentPage == index
+            ? AppColors.primary
             : AppColors.primary.withOpacity(0.3),
         borderRadius: BorderRadius.circular(4),
       ),
@@ -189,8 +188,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _goToSignIn() {
-    Navigator.pushReplacementNamed(context, RouteNames.signIn);
+  void _goToMainApp() {
+    Navigator.pushReplacementNamed(context, RouteNames.mainNavigation);
   }
 
   @override

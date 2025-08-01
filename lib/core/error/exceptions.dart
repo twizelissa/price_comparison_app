@@ -8,25 +8,35 @@ class ServerException implements Exception {
   });
 
   @override
-  String toString() => 'ServerException: $message (Status: $statusCode)';
-}
-
-class CacheException implements Exception {
-  final String message;
-
-  const CacheException({required this.message});
-
-  @override
-  String toString() => 'CacheException: $message';
+  String toString() {
+    return 'ServerException: $message${statusCode != null ? ' (Status: $statusCode)' : ''}';
+  }
 }
 
 class NetworkException implements Exception {
   final String message;
 
-  const NetworkException({required this.message});
+  const NetworkException({
+    required this.message,
+  });
 
   @override
-  String toString() => 'NetworkException: $message';
+  String toString() {
+    return 'NetworkException: $message';
+  }
+}
+
+class CacheException implements Exception {
+  final String message;
+
+  const CacheException({
+    required this.message,
+  });
+
+  @override
+  String toString() {
+    return 'CacheException: $message';
+  }
 }
 
 class AuthException implements Exception {
@@ -39,71 +49,100 @@ class AuthException implements Exception {
   });
 
   @override
-  String toString() => 'AuthException: $message (Code: $code)';
+  String toString() {
+    return 'AuthException: $message${code != null ? ' (Code: $code)' : ''}';
+  }
 }
 
 class ValidationException implements Exception {
   final String message;
-  final Map<String, String>? fieldErrors;
+  final Map<String, List<String>>? errors;
 
   const ValidationException({
     required this.message,
-    this.fieldErrors,
+    this.errors,
   });
 
   @override
-  String toString() => 'ValidationException: $message';
+  String toString() {
+    return 'ValidationException: $message';
+  }
 }
 
-class FirebaseException implements Exception {
+class TimeoutException implements Exception {
   final String message;
-  final String? code;
 
-  const FirebaseException({
+  const TimeoutException({
     required this.message,
-    this.code,
   });
 
   @override
-  String toString() => 'FirebaseException: $message (Code: $code)';
+  String toString() {
+    return 'TimeoutException: $message';
+  }
+}
+
+class UnauthorizedException implements Exception {
+  final String message;
+
+  const UnauthorizedException({
+    required this.message,
+  });
+
+  @override
+  String toString() {
+    return 'UnauthorizedException: $message';
+  }
+}
+
+class NotFoundException implements Exception {
+  final String message;
+
+  const NotFoundException({
+    required this.message,
+  });
+
+  @override
+  String toString() {
+    return 'NotFoundException: $message';
+  }
 }
 
 class LocationException implements Exception {
   final String message;
 
-  const LocationException({required this.message});
+  const LocationException({
+    required this.message,
+  });
 
   @override
-  String toString() => 'LocationException: $message';
+  String toString() {
+    return 'LocationException: $message';
+  }
 }
 
 class ImagePickerException implements Exception {
   final String message;
 
-  const ImagePickerException({required this.message});
-
-  @override
-  String toString() => 'ImagePickerException: $message';
-}
-
-class PermissionException implements Exception {
-  final String message;
-  final String? permission;
-
-  const PermissionException({
+  const ImagePickerException({
     required this.message,
-    this.permission,
   });
 
   @override
-  String toString() => 'PermissionException: $message (Permission: $permission)';
+  String toString() {
+    return 'ImagePickerException: $message';
+  }
 }
 
-class ParseException implements Exception {
+class StorageException implements Exception {
   final String message;
 
-  const ParseException({required this.message});
+  const StorageException({
+    required this.message,
+  });
 
   @override
-  String toString() => 'ParseException: $message';
+  String toString() {
+    return 'StorageException: $message';
+  }
 }

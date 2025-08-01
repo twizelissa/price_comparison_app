@@ -23,30 +23,41 @@ class AppColors {
   static const Color error = Color(0xFFDC3545);
   static const Color info = Color(0xFF17A2B8);
   
-  // Price Trend Colors
-  static const Color priceUp = Color(0xFFE74C3C);
-  static const Color priceDown = Color(0xFF27AE60);
-  static const Color priceStable = Color(0xFF95A5A6);
+  // System Colors
+  static const Color divider = Color(0xFFE0E0E0);
+  static const Color border = Color(0xFFD1D5DB);
+  static const Color disabled = Color(0xFF9CA3AF);
   
-  // Chart Colors
-  static const List<Color> chartColors = [
-    Color(0xFF3498DB),
-    Color(0xFFE74C3C),
-    Color(0xFF2ECC71),
-    Color(0xFFF39C12),
-    Color(0xFF9B59B6),
-    Color(0xFF1ABC9C),
+  // Gradient Colors
+  static const List<Color> primaryGradient = [
+    Color(0xFF007AFF),
+    Color(0xFF4DA3FF),
   ];
   
-  // Border Colors
-  static const Color border = Color(0xFFE0E0E0);
-  static const Color divider = Color(0xFFEEEEEE);
+  static const List<Color> backgroundGradient = [
+    Color(0xFFF8F9FA),
+    Color(0xFFFFFFFF),
+  ];
   
-  // Social Login Colors
-  static const Color google = Color(0xFF4285F4);
-  static const Color facebook = Color(0xFF1877F2);
+  // Shadow Colors
+  static const Color shadowColor = Color(0x1A000000);
+  static const Color lightShadow = Color(0x0D000000);
   
-  // Overlay Colors
-  static const Color overlay = Color(0x80000000);
-  static const Color modalBarrier = Color(0x4D000000);
+  // Price Specific Colors
+  static const Color priceUp = Color(0xFF28A745);
+  static const Color priceDown = Color(0xFFDC3545);
+  static const Color priceNeutral = Color(0xFF6C757D);
+  
+  // Store Rating Colors
+  static const Color ratingGold = Color(0xFFFFD700);
+  static const Color ratingSilver = Color(0xFFC0C0C0);
+  static const Color ratingBronze = Color(0xFFCD7F32);
+  
+  // Category Colors
+  static const Color categoryFood = Color(0xFFFF6B6B);
+  static const Color categoryElectronics = Color(0xFF4ECDC4);
+  static const Color categoryClothing = Color(0xFF45B7D1);
+  static const Color categoryHealth = Color(0xFF96CEB4);
+  static const Color categoryHome = Color(0xFFFECEA8);
+  static const Color categoryOther = Color(0xFFD1D5DB);
 }

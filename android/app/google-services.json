@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "55226443629",
+    "project_id": "kigalipricecheck",
+    "storage_bucket": "kigalipricecheck.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55226443629:android:077e1288e1e54b8ed91c64",
+        "android_client_info": {
+          "package_name": "com.example.kigali_price_check_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55226443629-84psl37t1gub1o359qlm2rqf5u9j2a0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kigali_price_check_mobile",
+            "certificate_hash": "c436e9307b2e4397f895329775b9b53ea6a15853"
+          }
+        },
+        {
+          "client_id": "55226443629-d045htpnqdd7k3r8bh4v8ig9g7qaqmeq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcLrqoZClkj_zrr1li7ZomOoKHwvIBCa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55226443629-d045htpnqdd7k3r8bh4v8ig9g7qaqmeq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "55226443629-5nj70o7ft31781hdneiog6vfotoglevi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.priceComparisonApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55226443629:android:56f2b106c0de3fccd91c64",
+        "android_client_info": {
+          "package_name": "com.example.price_comparison_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55226443629-iqtfoecjlso9rqs68d3ea4qsnesb98nu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.price_comparison_app",
+            "certificate_hash": "c436e9307b2e4397f895329775b9b53ea6a15853"
+          }
+        },
+        {
+          "client_id": "55226443629-d045htpnqdd7k3r8bh4v8ig9g7qaqmeq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcLrqoZClkj_zrr1li7ZomOoKHwvIBCa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55226443629-d045htpnqdd7k3r8bh4v8ig9g7qaqmeq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "55226443629-5nj70o7ft31781hdneiog6vfotoglevi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.priceComparisonApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

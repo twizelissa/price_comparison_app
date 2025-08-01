@@ -4,8 +4,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../entities/category.dart';
 import '../repositories/home_repository.dart';
+import '../entities/product.dart';
+import 'package:equatable/equatable.dart';
 
-class GetCategories implements UseCase<List<Category>, NoParams> {
+class GetCategories extends UseCase<List<Category>, NoParams> {
   final HomeRepository repository;
 
   GetCategories(this.repository);
@@ -16,7 +18,7 @@ class GetCategories implements UseCase<List<Category>, NoParams> {
   }
 }
 
-class GetPopularCategories implements UseCase<List<Category>, NoParams> {
+class GetPopularCategories extends UseCase<List<Category>, NoParams> {
   final HomeRepository repository;
 
   GetPopularCategories(this.repository);
@@ -27,7 +29,7 @@ class GetPopularCategories implements UseCase<List<Category>, NoParams> {
   }
 }
 
-class SearchProducts implements UseCase<List<Product>, SearchProductsParams> {
+class SearchProducts extends UseCase<List<Product>, SearchProductsParams> {
   final HomeRepository repository;
 
   SearchProducts(this.repository);
@@ -47,9 +49,11 @@ class SearchProducts implements UseCase<List<Product>, SearchProductsParams> {
   }
 }
 
-// Import Product entity
-import '../entities/product.dart';
-import 'package:equatable/equatable.dart';
+// NoParams class definition
+class NoParams extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
 class SearchProductsParams extends Equatable {
   final String query;
