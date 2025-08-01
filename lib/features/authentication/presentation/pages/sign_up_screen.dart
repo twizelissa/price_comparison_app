@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../config/routes/route_names.dart';
+import '../../../../core/utils/responsive_layout.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -49,6 +50,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isPortrait = ResponsiveLayout.isPortrait(context);
+    final screenWidth = ResponsiveLayout.screenWidth(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -84,28 +88,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         },
         child: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: isPortrait 
+                ? const EdgeInsets.all(24.0)
+                : EdgeInsets.symmetric(horizontal: screenWidth * 0.15, vertical: 16),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
+                  SizedBox(height: isPortrait ? 20 : 10),
                   Text(
                     'Create Account',
                     style: AppTextStyles.h1.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
+                      fontSize: isPortrait ? 32 : 24,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: isPortrait ? 8 : 4),
                   Text(
                     'Sign up to get started',
                     style: AppTextStyles.bodyLarge.copyWith(
                       color: Colors.grey[600],
+                      fontSize: isPortrait ? 16 : 14,
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: isPortrait ? 40 : 20),
                   
                   // First Name Field
                   TextFormField(
@@ -121,6 +129,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(color: AppColors.primary),
                       ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: isPortrait ? 16 : 12,
+                        horizontal: 16,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -129,7 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: isPortrait ? 16 : 8),
                   
                   // Last Name Field
                   TextFormField(
@@ -145,6 +157,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(color: AppColors.primary),
                       ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: isPortrait ? 16 : 12,
+                        horizontal: 16,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -153,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: isPortrait ? 16 : 8),
                   
                   // Email Field
                   TextFormField(
@@ -170,6 +186,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(color: AppColors.primary),
                       ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: isPortrait ? 16 : 12,
+                        horizontal: 16,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -182,7 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: isPortrait ? 16 : 8),
                   
                   // Password Field
                   TextFormField(
@@ -211,6 +231,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(color: AppColors.primary),
                       ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: isPortrait ? 16 : 12,
+                        horizontal: 16,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -222,7 +246,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: isPortrait ? 16 : 8),
                   
                   // Confirm Password Field
                   TextFormField(
@@ -251,6 +275,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(color: AppColors.primary),
                       ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: isPortrait ? 16 : 12,
+                        horizontal: 16,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -263,14 +291,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 24),
+                  SizedBox(height: isPortrait ? 24 : 12),
                   
                   // Sign Up Button
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
                       return SizedBox(
                         width: double.infinity,
-                        height: 48,
+                        height: isPortrait ? 48 : 40,
                         child: ElevatedButton(
                           onPressed: state is AuthLoading ? null : _signUp,
                           style: ElevatedButton.styleFrom(
@@ -284,10 +312,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? const CircularProgressIndicator(
                                   color: Colors.white,
                                 )
-                              : const Text(
+                              : Text(
                                   'Sign Up',
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: isPortrait ? 16 : 14,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -296,12 +324,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  SizedBox(height: isPortrait ? 16 : 8),
 
                   // Google Sign Up Button
                   SizedBox(
                     width: double.infinity,
-                    height: 48,
+                    height: isPortrait ? 48 : 40,
                     child: OutlinedButton.icon(
                       onPressed: () {
                         context.read<AuthBloc>().add(AuthGoogleSignInRequested());
@@ -324,10 +352,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      label: const Text(
+                      label: Text(
                         'Continue with Google',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: isPortrait ? 16 : 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
                         ),
@@ -341,7 +369,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   
-                  const SizedBox(height: 24),
+                  SizedBox(height: isPortrait ? 24 : 12),
                   
                   // Sign In Link
                   Row(
@@ -351,6 +379,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         'Already have an account? ',
                         style: AppTextStyles.bodyMedium.copyWith(
                           color: Colors.grey[600],
+                          fontSize: isPortrait ? 14 : 12,
                         ),
                       ),
                       TextButton(
@@ -362,6 +391,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: AppTextStyles.bodyMedium.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
+                            fontSize: isPortrait ? 14 : 12,
                           ),
                         ),
                       ),

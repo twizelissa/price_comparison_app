@@ -3,6 +3,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../config/routes/route_names.dart';
+import '../../../../core/utils/responsive_layout.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -64,74 +65,83 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isPortrait = ResponsiveLayout.isPortrait(context);
+    
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedBuilder(
-              animation: _animationController,
-              builder: (context, child) {
-                return FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: ScaleTransition(
-                    scale: _scaleAnimation,
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 60,
-                        color: AppColors.primary,
+        child: SingleChildScrollView(
+          padding: isPortrait 
+              ? const EdgeInsets.all(32.0)
+              : const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) {
+                  return FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: ScaleTransition(
+                      scale: _scaleAnimation,
+                      child: Container(
+                        width: isPortrait ? 120 : 80,
+                        height: isPortrait ? 120 : 80,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(isPortrait ? 30 : 20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.shopping_cart_outlined,
+                          size: isPortrait ? 60 : 40,
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
+                  );
+                },
+              ),
+              SizedBox(height: isPortrait ? 30 : 15),
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: Text(
+                  AppStrings.appName,
+                  style: AppTextStyles.h1.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: isPortrait ? 32 : 24,
                   ),
-                );
-              },
-            ),
-            const SizedBox(height: 30),
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: Text(
-                AppStrings.appName,
-                style: AppTextStyles.h1.copyWith(
+                ),
+              ),
+              SizedBox(height: isPortrait ? 10 : 5),
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: Text(
+                  'Compare prices, save money',
+                  style: AppTextStyles.h5.copyWith(
+                    color: Colors.white70,
+                    fontSize: isPortrait ? 16 : 14,
+                  ),
+                ),
+              ),
+              SizedBox(height: isPortrait ? 80 : 40),
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: const CircularProgressIndicator(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  strokeWidth: 2,
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: Text(
-                'Compare prices, save money',
-                style: AppTextStyles.h5.copyWith(
-                  color: Colors.white70,
-                ),
-              ),
-            ),
-            const SizedBox(height: 80),
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: const CircularProgressIndicator(
-                color: Colors.white,
-                strokeWidth: 2,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
