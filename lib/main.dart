@@ -13,6 +13,9 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  // Lock portrait mode initially (optional)
+  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -20,8 +23,7 @@ void main() async {
   } catch (e) {
     print('Firebase initialization error: $e');
   }
-
-  // Initialize Cloudinary
+  
   try {
     CloudinaryService.initialize(cloudName: CloudinaryConfig.cloudName);
     print('Cloudinary initialized successfully');
@@ -49,9 +51,16 @@ class KigaliPriceCheckApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1.0, // Prevent system font size from affecting app
+            ),
+            child: child!,
+          );
+        },
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            // Start with splash screen for proper flow
             return const SplashScreen();
           },
         ),
