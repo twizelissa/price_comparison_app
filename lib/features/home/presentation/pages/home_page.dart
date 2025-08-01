@@ -448,7 +448,7 @@ class _HomePageState extends State<HomePage> {
                 return SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.75, // Improved ratio for cleaner design with less content
+                    childAspectRatio: 0.85, // Increased from 0.75 to give more height
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                   ),
@@ -591,29 +591,35 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min, // Add this to prevent overflow
                     children: [
                       // Product name and price
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            product.name,
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              fontWeight: FontWeight.bold,
+                      Flexible( // Wrap in Flexible to prevent overflow
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              product.name,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1, // Reduced from 2 to save space
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'RWF ${product.price.toStringAsFixed(0)}',
-                            style: AppTextStyles.h6.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
+                            const SizedBox(height: 2), // Reduced from 4
+                            Text(
+                              'RWF ${product.price.toStringAsFixed(0)}',
+                              style: AppTextStyles.h6.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
+                      
+                      const SizedBox(height: 4), // Small spacing
                       
                       // Action buttons - Save and Add to Cart
                       Row(
@@ -629,15 +635,15 @@ class _HomePageState extends State<HomePage> {
                               return GestureDetector(
                                 onTap: () => _toggleFavorite(product, isFavorite),
                                 child: Container(
-                                  padding: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(6), // Reduced from 8
                                   decoration: BoxDecoration(
                                     color: isFavorite ? Colors.red.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(6), // Reduced from 8
                                   ),
                                   child: Icon(
                                     isFavorite ? Icons.favorite : Icons.favorite_border,
                                     color: isFavorite ? Colors.red : Colors.grey[600],
-                                    size: 20,
+                                    size: 18, // Reduced from 20
                                   ),
                                 ),
                               );
@@ -648,15 +654,15 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: _addToCart,
                             child: Container(
-                              padding: const EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(6), // Reduced from 8
                               decoration: BoxDecoration(
                                 color: AppColors.primary.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(6), // Reduced from 8
                               ),
                               child: Icon(
                                 Icons.add_shopping_cart,
                                 color: AppColors.primary,
-                                size: 20,
+                                size: 18, // Reduced from 20
                               ),
                             ),
                           ),

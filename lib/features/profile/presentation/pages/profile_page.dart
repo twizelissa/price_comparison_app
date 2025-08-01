@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -22,6 +23,83 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   User? get currentUser => FirebaseAuth.instance.currentUser;
   bool _isUpdatingPhoto = false;
+  
+  // Notification settings
+  bool _priceAlertsEnabled = true;
+  bool _newProductsEnabled = false;
+  bool _dealsEnabled = true;
+  
+  // Preferred locations
+  List<String> _preferredLocations = ['Kigali'];
+  final TextEditingController _locationController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserPreferences();
+  }
+
+  @override
+  void dispose() {
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadUserPreferences() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        _priceAlertsEnabled = prefs.getBool('price_alerts_enabled') ?? true;
+        _newProductsEnabled = prefs.getBool('new_products_enabled') ?? false;
+        _dealsEnabled = prefs.getBool('deals_enabled') ?? true;
+        _preferredLocations = prefs.getStringList('preferred_locations') ?? ['Kigali'];
+      });
+    } catch (e) {
+      print('Error loading user preferences: $e');
+    }
+  }
+
+  Future<void> _saveNotificationSetting(String key, bool value) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(key, value);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Notification settings updated'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error saving settings: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  Future<void> _savePreferredLocations() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('preferred_locations', _preferredLocations);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Preferred locations updated'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error saving locations: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   Future<void> _updateProfilePicture() async {
     try {
@@ -328,6 +406,7 @@ class _ProfilePageState extends State<ProfilePage> {
               _buildMenuItem(
                 icon: Icons.notifications_outlined,
                 title: 'Notifications',
+                subtitle: _getNotificationStatus(),
                 onTap: () {
                   _showNotificationSettings();
                 },
@@ -335,6 +414,7 @@ class _ProfilePageState extends State<ProfilePage> {
               _buildMenuItem(
                 icon: Icons.location_on_outlined,
                 title: 'Preferred Locations',
+                subtitle: '${_preferredLocations.length} location${_preferredLocations.length != 1 ? 's' : ''} selected',
                 onTap: () {
                   _showLocationSettings();
                 },
@@ -378,6 +458,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildMenuItem({
     required IconData icon,
     required String title,
+    String? subtitle,
     required VoidCallback onTap,
     bool isDestructive = false,
   }) {
@@ -406,6 +487,14 @@ class _ProfilePageState extends State<ProfilePage> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        subtitle: subtitle != null 
+            ? Text(
+                subtitle,
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: Colors.grey[600],
+                ),
+              )
+            : null,
         trailing: Icon(
           Icons.arrow_forward_ios,
           size: 16,
@@ -506,31 +595,74 @@ class _ProfilePageState extends State<ProfilePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Notification Settings'),
-          content: const Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SwitchListTile(
-                title: Text('Price Alerts'),
-                subtitle: Text('Get notified about price changes'),
-                value: true,
-                onChanged: null,
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Row(
+                children: [
+                  Icon(Icons.notifications_outlined, color: AppColors.primary),
+                  SizedBox(width: 8),
+                  Text('Notification Settings'),
+                ],
               ),
-              SwitchListTile(
-                title: Text('New Products'),
-                subtitle: Text('Get notified about new products'),
-                value: false,
-                onChanged: null,
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SwitchListTile(
+                    title: Text('Price Alerts'),
+                    subtitle: Text('Get notified about price changes'),
+                    value: _priceAlertsEnabled,
+                    activeColor: AppColors.primary,
+                    onChanged: (value) {
+                      setDialogState(() {
+                        _priceAlertsEnabled = value;
+                      });
+                      setState(() {
+                        _priceAlertsEnabled = value;
+                      });
+                      _saveNotificationSetting('price_alerts_enabled', value);
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('New Products'),
+                    subtitle: Text('Get notified about new products'),
+                    value: _newProductsEnabled,
+                    activeColor: AppColors.primary,
+                    onChanged: (value) {
+                      setDialogState(() {
+                        _newProductsEnabled = value;
+                      });
+                      setState(() {
+                        _newProductsEnabled = value;
+                      });
+                      _saveNotificationSetting('new_products_enabled', value);
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('Best Deals'),
+                    subtitle: Text('Get notified about special offers'),
+                    value: _dealsEnabled,
+                    activeColor: AppColors.primary,
+                    onChanged: (value) {
+                      setDialogState(() {
+                        _dealsEnabled = value;
+                      });
+                      setState(() {
+                        _dealsEnabled = value;
+                      });
+                      _saveNotificationSetting('deals_enabled', value);
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Done', style: TextStyle(color: AppColors.primary)),
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -540,30 +672,205 @@ class _ProfilePageState extends State<ProfilePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Row(
+                children: [
+                  Icon(Icons.location_on_outlined, color: AppColors.primary),
+                  SizedBox(width: 8),
+                  Text('Preferred Locations'),
+                ],
+              ),
+              content: Container(
+                width: double.maxFinite,
+                constraints: BoxConstraints(maxHeight: 400),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Select your preferred shopping locations to get personalized recommendations',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _preferredLocations.length,
+                        itemBuilder: (context, index) {
+                          final location = _preferredLocations[index];
+                          return Card(
+                            margin: EdgeInsets.symmetric(vertical: 4),
+                            child: ListTile(
+                              leading: Icon(Icons.location_city, color: AppColors.primary),
+                              title: Text(location),
+                              trailing: _preferredLocations.length > 1
+                                  ? IconButton(
+                                      icon: Icon(Icons.delete, color: Colors.red),
+                                      onPressed: () {
+                                        setDialogState(() {
+                                          _preferredLocations.removeAt(index);
+                                        });
+                                        setState(() {
+                                          _preferredLocations.removeAt(index);
+                                        });
+                                        _savePreferredLocations();
+                                      },
+                                    )
+                                  : Icon(Icons.check_circle, color: Colors.green),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ListTile(
+                        leading: Icon(Icons.add_location, color: AppColors.primary),
+                        title: Text('Add new location'),
+                        onTap: () => _showAddLocationDialog(setDialogState),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Done', style: TextStyle(color: AppColors.primary)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showAddLocationDialog(StateSetter setDialogState) {
+    final commonLocations = [
+      'Kigali City Center',
+      'Kimisagara',
+      'Nyabugogo',
+      'Gikondo',
+      'Remera',
+      'Kacyiru',
+      'Gisozi',
+      'Kibagabaga',
+      'Nyamirambo',
+      'Kimihurura',
+      'Kanombe',
+      'Gatenga',
+    ];
+
+    showDialog(
+      context: context,
+      builder: (context) {
         return AlertDialog(
-          title: const Text('Preferred Locations'),
-          content: const Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: Text('Kigali'),
-                trailing: Icon(Icons.check_circle, color: Colors.green),
-              ),
-              ListTile(
-                title: Text('Add new location'),
-                trailing: Icon(Icons.add),
-              ),
-            ],
+          title: Text('Add Location'),
+          content: Container(
+            width: double.maxFinite,
+            height: 400,
+            child: Column(
+              children: [
+                TextField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                    labelText: 'Enter location name',
+                    prefixIcon: Icon(Icons.location_on),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Or select from common locations:',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: commonLocations.length,
+                    itemBuilder: (context, index) {
+                      final location = commonLocations[index];
+                      final isAlreadyAdded = _preferredLocations.contains(location);
+                      
+                      return ListTile(
+                        title: Text(location),
+                        trailing: isAlreadyAdded 
+                            ? Icon(Icons.check, color: Colors.green)
+                            : null,
+                        enabled: !isAlreadyAdded,
+                        onTap: isAlreadyAdded ? null : () {
+                          _addLocation(location, setDialogState);
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_locationController.text.trim().isNotEmpty) {
+                  _addLocation(_locationController.text.trim(), setDialogState);
+                  Navigator.of(context).pop();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+              ),
+              child: Text('Add'),
             ),
           ],
         );
       },
     );
+  }
+
+  String _getNotificationStatus() {
+    List<String> enabledNotifications = [];
+    if (_priceAlertsEnabled) enabledNotifications.add('Price alerts');
+    if (_newProductsEnabled) enabledNotifications.add('New products');
+    if (_dealsEnabled) enabledNotifications.add('Deals');
+    
+    if (enabledNotifications.isEmpty) {
+      return 'All disabled';
+    } else if (enabledNotifications.length == 3) {
+      return 'All enabled';
+    } else {
+      return '${enabledNotifications.length} enabled';
+    }
+  }
+
+  void _addLocation(String location, StateSetter setDialogState) {
+    if (!_preferredLocations.contains(location)) {
+      setDialogState(() {
+        _preferredLocations.add(location);
+      });
+      setState(() {
+        _preferredLocations.add(location);
+      });
+      _locationController.clear();
+      _savePreferredLocations();
+    }
   }
 
   void _showHelpDialog() {

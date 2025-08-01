@@ -9,6 +9,7 @@ import 'package:kigali_price_check/features/authentication/presentation/pages/fo
 import 'package:kigali_price_check/features/home/presentation/pages/home_page.dart';
 import 'package:kigali_price_check/features/home/presentation/pages/main_navigation_page.dart';
 import 'package:kigali_price_check/features/product_details/presentation/pages/product_details_page.dart';
+import 'package:kigali_price_check/features/add_price/presentation/pages/add_price_page.dart';
 import 'package:kigali_price_check/core/models/product_model.dart';
 
 class AppRouter {
@@ -50,6 +51,11 @@ class AppRouter {
         final product = settings.arguments as Product;
         return MaterialPageRoute(
           builder: (_) => ProductDetailsPage(product: product),
+        );
+      case RouteNames.addPrice:
+        return MaterialPageRoute(
+          builder: (_) => const AddPricePage(),
+          settings: settings, // Pass settings to allow arguments access in the page
         );
       default:
         return MaterialPageRoute(
